@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-[#F5F4F0] text-[#1a1a1a] font-sans;
+  }
+
+  @media (hover: hover) {
+    body { cursor: none; }
+  }
+
+  ::selection {
+    background: #1a1a1a;
+    color: #F5F4F0;
+  }
+}
+
+@layer components {
+  .custom-cursor {
+    width: 10px;
+    height: 10px;
+    background: #1a1a1a;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+  }
+
+  .custom-cursor-follower {
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid rgba(26,26,26,0.4);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), width 0.3s ease, height 0.3s ease;
+  }
+
+  .link-hover:hover ~ .custom-cursor,
+  a:hover ~ .custom-cursor {
+    width: 6px;
+    height: 6px;
+  }
+
+  .tag-pill {
+    @apply inline-block font-mono text-[10px] tracking-widest uppercase px-2.5 py-1 border border-[#1a1a1a]/20 rounded-full;
+  }
+
+  .section-label {
+    @apply font-mono text-[11px] tracking-[0.2em] uppercase text-[#1a1a1a]/40;
+  }
+
+  .nav-link {
+    @apply text-sm font-sans font-medium tracking-wide text-[#1a1a1a]/60 hover:text-[#1a1a1a] transition-colors duration-200;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #F5F4F0;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border-radius: 2px;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
